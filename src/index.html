@@ -1,37 +1,74 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Titanium Group 5 | Home</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <script type="module" src="/js/main.js" defer></script>
-  </head>
+<!DOCTYPE html>
+<html lang="nl">
 
-  <body>
-    <!-- index.html -->
-    <header>
-      <div class="logo" style="background: url(ti-logo.png);"></div>
-      <h1>Titanium <span>Group 5</span> | Mr. Gemerts</h1>
-    </header>
-    
-    <main>
-      <section class="hero">
-        <h2 id="mission">Loading mission...</h2> <!-- Dynamic on reload -->
-      </section>
-    
-      <div class="cards-grid">
-        <div class="flip-card" data-page="mining">
-          <div class="card-inner">
-            <div class="card-front">⛏️ Mining</div>
-            <div class="card-back">Dredge & Open Pit</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Titanium Group 5 | Loading...</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/preloader.css">
+  <script type="module" src="/js/preloader.js" defer></script>
+</head>
+
+<body>
+  <!-- PRESENTATION BUTTON - VISIBLE FIRST -->
+  <button class="presentation-btn" type="button">
+    🎬 START PRESENTATION
+  </button>
+
+  <!-- PRELOADER (screens HIDDEN until button) -->
+  <div class="preloader" id="preloader">
+    <!-- INTRO SCREEN -->
+    <div class="screen intro" id="intro-screen">
+      <div class="intro-content">
+        <img src="https://www.le-comptoir-geologique.com/_media/img/large/ilmenite.webp" alt="Titanium Crystal"
+          class="ti-image">
+        <div class="ti-logo">Ti</div>
+        <h2 class="welcome-text">Welcome to our Titanium Presentation</h2>
+        <div class="loader-bar">
+          <div class="fill" id="loader-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM CAROUSEL SCREEN -->
+    <div class="screen team" id="team-screen">
+      <h2 class="welcome-text">Meet Group 5</h2>
+      <div class="team-grid">
+        <div class="team-carousel-track">
+          <!-- Mi-ann Wirjosentono -->
+          <div class="team-member">
+            <div class="avatar">MW</div>
+            <h3>Mi-ann Wirjosentono</h3>
+            <p>Geology Research</p>
+          </div>
+
+          <!-- Justin Jibodh Grootfaam -->
+          <div class="team-member">
+            <div class="avatar">JJ</div>
+            <h3>Justin Jibodh Grootfaam</h3>
+            <p>Data Analysis</p>
+          </div>
+
+          <!-- Sheswita Lall Kowlesar -->
+          <div class="team-member">
+            <div class="avatar">SL</div>
+            <h3>Sheswita Lall Kowlesar</h3>
+            <p>Mineral Expert</p>
+          </div>
+
+          <!-- Demi Kohinor Kylah -->
+          <div class="team-member">
+            <div class="avatar">DK</div>
+            <h3>Demi Kohinor Kylah</h3>
+            <p>Project Coordinator</p>
           </div>
         </div>
-        <!-- 5 more: toepassingen, verwerking, geology, vindplaatsen, productie, prijsontwikkeling -->
       </div>
-    </main>
-    
-    <footer>© 2025 Mi-Ann & Group 5 | Economic Geology</footer>
+    </div>
+  </div>
+</body>
 
-  </body>
 </html>
