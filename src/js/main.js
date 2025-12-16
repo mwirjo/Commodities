@@ -8,7 +8,7 @@ class TiApp {
       'Map Richards Bay mining operations',
       'Analyze global TiO₂ production trends'
     ];
-    this.pages = ['mining','verwerking','geologie','vindplaatsen','productie','prijsontwikkeling'];
+    this.pages = ['mining','toepassingen','verwerking','geologie','vindplaatsen','productie','prijsontwikkeling'];
     this.init();
   }
 
@@ -66,7 +66,7 @@ class TiApp {
 
   navigate(page) {
     localStorage.setItem('current-page', page);
-    window.location.href = `${page}.html`;
+    window.location.href = `/${page}/index.html`;
   }
 }
 

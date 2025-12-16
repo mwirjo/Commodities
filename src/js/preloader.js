@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🔥 PRELOADER: DOM Loaded');
     
     const TIMING = {
-        INTRO_SCREEN: 5000,
+        INTRO_SCREEN: 2000,
         LOADER_DURATION: 5000,
-        TEAM_SCREEN: 8000,
+        TEAM_SCREEN: 12000,
         TRANSITION_DELAY: 500,
         SPOTLIGHT_INTERVAL: 2000
     };
@@ -56,51 +56,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function startTeamCarousel() {
-        carouselTrack = document.querySelector('.team-carousel-track');
-        const teamMembers = document.querySelectorAll('.team-member');
-        let currentMember = 0;
+    const carouselContainer = document.querySelector('.team-carousel');
+    carouselTrack = document.querySelector('.team-carousel-track');
+    const teamMembers = document.querySelectorAll('.team-member');
+    let currentMember = 0;
+    
+    console.log('🎮 STARTING TEAM CAROUSEL');
+    
+    // Calculate item dimensions once
+    const ITEM_WIDTH = 220;
+    const GAP = 160; // 2rem = 160px (matches CSS gap: 2rem)
+    const CONTAINER_WIDTH = carouselContainer?.offsetWidth || window.innerWidth;
+    const CENTER_OFFSET = (CONTAINER_WIDTH / 2) - (ITEM_WIDTH / 2);
+    
+    spotlightInterval = setInterval(() => {
+        // Remove previous selection
+        teamMembers.forEach(member => {
+            member.classList.remove('selected');
+            const h3 = member.querySelector('h3'), p = member.querySelector('p');
+            if (h3) h3.classList.remove('selected');
+            if (p) p.classList.remove('selected');
+        });
         
-        console.log('🎮 STARTING TEAM CAROUSEL');
-        
-        spotlightInterval = setInterval(() => {
-            // Remove previous selection
-            teamMembers.forEach(member => {
-                member.classList.remove('selected');
-                const h3 = member.querySelector('h3'), p = member.querySelector('p');
-                if (h3) h3.classList.remove('selected');
-                if (p) p.classList.remove('selected');
-            });
+        // Select current member
+        if (teamMembers[currentMember]) {
+            const member = teamMembers[currentMember];
+            member.classList.add('selected');
+            const h3 = member.querySelector('h3');
+            const p = member.querySelector('p');
+            if (h3) h3.classList.add('selected');
+            if (p) p.classList.add('selected');
             
-            // Select current member
-            if (teamMembers[currentMember]) {
-                teamMembers[currentMember].classList.add('selected');
-                const h3 = teamMembers[currentMember].querySelector('h3');
-                const p = teamMembers[currentMember].querySelector('p');
-                if (h3) h3.classList.add('selected');
-                if (p) p.classList.add('selected');
-                
-                // Slide to center
-                const memberWidth = 220; // Fixed width for smooth movement
-                const offset = -(currentMember * (memberWidth + 100));
-                if (carouselTrack) {
-                    carouselTrack.style.transform = `translateX(${offset}px)`;
-                }
-                
-                console.log(`🚗 Selected: Member ${currentMember + 1}`);
-            }
+            // Center calculation: slide track so selected item is in container center
+            const trackOffset = -(currentMember * (ITEM_WIDTH + GAP)) + CENTER_OFFSET;
+            carouselTrack.style.transform = `translateX(${trackOffset}px)`;
             
-            currentMember = (currentMember + 1) % teamMembers.length;
-        }, TIMING.SPOTLIGHT_INTERVAL);
+            console.log(`🚗 Centered Member ${currentMember + 1} at offset: ${Math.round(trackOffset)}px`);
+        }
         
-        // Redirect after team time
-        setTimeout(() => {
-            clearInterval(spotlightInterval);
-            console.log('🏁 TEAM COMPLETE → HOMEPAGE');
-            if (document.exitFullscreen) document.exitFullscreen();
-            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-            window.location.href = 'homepage.html';
-        }, TIMING.TEAM_SCREEN);
-    }
+        currentMember = (currentMember + 1) % teamMembers.length;
+    }, TIMING.SPOTLIGHT_INTERVAL);
+    
+    // Redirect after team time
+    setTimeout(() => {
+        clearInterval(spotlightInterval);
+        console.log('🏁 TEAM COMPLETE → HOMEPAGE');
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        window.location.href = 'homepage.html';
+    }, TIMING.TEAM_SCREEN);
+}
+
     
     function imageClickHandler() {
         console.log('🖱️ IMAGE CLICKED!');
