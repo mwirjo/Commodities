@@ -8,7 +8,8 @@ export default defineConfig({
     outDir: '../dist',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'src/index.html'),
+        loader: resolve(__dirname, 'src/index.html'),
+        homepage:resolve(__dirname, 'src/homepage.html'),
         mining: resolve(__dirname, 'src/mining/index.html'),
         toepassing: resolve(__dirname, 'src/toepassing/index.html'),
         questions: resolve(__dirname, 'src/questions/index.html'),
