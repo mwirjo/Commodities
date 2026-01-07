@@ -1,5 +1,5 @@
 // 🔥 TITANIUM 8.5-YEAR GEOLOGY DASHBOARD - FULL 207 POINTS COMPLETE
-/* global Chart */
+
 class CommodityDashboard {
   constructor() {
     this.apiKey = '10edfc9e07416eafbcf71e7c387872f49fc6d09e';
@@ -298,7 +298,7 @@ class CommodityDashboard {
     const trendEl = document.getElementById('trendIndicator');
     if (trendEl) {
       const prices = this.data.historical.map(p => parseFloat(p.price)).filter(p => !isNaN(p));
-      const change = prices.length > 1 ? ((prices[prices.length-1] - prices[0]) / prices[0]) * 100 : 0;
+      const change = prices.length > 1 ? ((prices[prices.length - 1] - prices[0]) / prices[0]) * 100 : 0;
       const text = change > 100 ? '📈 8.5jr BULL' : change > 0 ? '➡️ STABIL' : '📉 BEAR';
       trendEl.textContent = text;
       trendEl.className = `trend-indicator trend-${change >= 0 ? 'positive' : 'negative'}`;
