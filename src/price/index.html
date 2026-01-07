@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Titanium Prijsontwikkeling - Geologie Dashboard</title>   
+    <link rel="stylesheet" href="/css/price.css">
+    
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- HEADER -->
+        <header class="hero">
+            <h1>🔥 Titanium Prijsontwikkeling</h1>
+            <p class="subtitle">Economische Geologie | 8.5-Jaar Analyse (2017-2025)</p>
+        </header>
+
+        <!-- EXECUTIVE SUMMARY -->
+        <section class="executive-summary">
+            <h2>📊 Markt Dashboard</h2>
+            <div class="summary-container">
+                <p id="dataSummary" class="summary neutral">Laden titanium data...</p>
+            </div>
+        </section>
+
+        <!-- LIVE METRICS -->
+        <section class="metrics-grid">
+            <div class="metric-card current-price">
+                <h3>💎 Live Prijs</h3>
+                <div class="price-display" id="currentPrice">$-</div>
+            </div>
+            <div class="metric-card weekly">
+                <h3>📈 Week ∆</h3>
+                <div class="change-display" id="weeklyChange">-</div>
+                <h4>Dag ∆</h4>
+                <div class="price-change" id="dailyChange">-</div>
+            </div>
+            <div class="metric-card trend">
+                <h3>🎯 Cyclus Trend</h3>
+                <div class="trend-indicator" id="trendIndicator">-</div>
+            </div>
+        </section>
+
+        <!-- ADVANCED STATS -->
+        <section class="advanced-stats">
+            <h3>🔬 Technische Analyse</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Volatiliteit (8.5jr)</span>
+                    <span class="stat-value" id="volatility">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">RSI (14d)</span>
+                    <span class="stat-value" id="rsi">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">MA20</span>
+                    <span class="stat-value" id="ma20">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Data Span</span>
+                    <span class="stat-value" id="totalDays">-</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHARTS -->
+        <section class="charts-section">
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <h3>📈 Prijs </h3>
+                    <canvas id="priceChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>📅 Jaarlijks (2017-2025)</h3>
+                    <canvas id="yearlyChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>⚙️ MA Vergelijking (180d)</h3>
+                    <canvas id="maComparisonChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>📊 Volatiliteit</h3>
+                    <canvas id="volatilityChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- DATA TABLE -->
+        <section class="table-section">
+            <h3>📋 Recente 30 Dagen</h3>
+            <div class="table-container">
+                <table id="priceTable">
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Prijs (USD/t)</th>
+                            <th>∆ Dag (%)</th>
+                            <th>Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- GLOSSARY -->
+        <section class="glossary-section">
+            <h2>📚 Technische Termen</h2>
+            <div class="glossary-grid" id="glossary-grid">
+                <!-- JS populates this -->
+            </div>
+        </section>
+
+        <!-- CONTROLS -->
+        <div class="controls">
+            <button id="refreshData" class="btn-primary">🔄 Update Data</button>
+            <div id="status" class="status">Klaar voor titanium analyse</div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/price.js"></script>
+</body>
+
+</html>

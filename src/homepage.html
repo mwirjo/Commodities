@@ -8,7 +8,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@700&family=Exo+2:wght@700&family=Rajdhani:wght@700&display=swap"
         rel="stylesheet">
-
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/home.css">
     <script type="module" src="/js/main.js" defer></script>
@@ -22,15 +21,11 @@
             <h1>Group 5 Titanium</h1>
             <p class="teacher">Mr. Gemerts - Economic Geology</p>
         </div>
-        <!-- NEW: Right side logos -->
         <div class="header-logos">
             <img src="/images/logos/Adek.jfif" alt="Adek" class="logo-sm">
             <img src="/images/logos/ftew.png" alt="FEW" class="logo-sm">
         </div>
     </header>
-
-
-
 
     <main>
         <section class="hero">
@@ -38,6 +33,23 @@
         </section>
 
         <div class="cards-grid">
+            <!-- 1. Geologie (Foundation) -->
+            <div class="flip-card" data-page="geologie">
+                <div class="card-inner">
+                    <div class="card-front">🪨 Geologie</div>
+                    <div class="card-back">Ilmenite Sands</div>
+                </div>
+            </div>
+
+            <!-- 2. Vindplaatsen (Where it exists) -->
+            <div class="flip-card" data-page="vindplaatsen">
+                <div class="card-inner">
+                    <div class="card-front">📍 Vindplaatsen</div>
+                    <div class="card-back">Richards Bay, AUS 26%</div>
+                </div>
+            </div>
+
+            <!-- 3. Mining (Extraction) -->
             <div class="flip-card" data-page="mining">
                 <div class="card-inner">
                     <div class="card-front">⛏️ Mining</div>
@@ -45,41 +57,35 @@
                 </div>
             </div>
 
-            <div class="flip-card" data-page="toepassingen">
-                <div class="card-inner">
-                    <div class="card-front">⛏️ Toepassingen</div>
-                    <div class="card-back">Dredge & Open Pit</div>
-                </div>
-            </div>
-
+            <!-- 4. Verwerking (Processing) -->
             <div class="flip-card" data-page="verwerking">
                 <div class="card-inner">
                     <div class="card-front">⚗️ Verwerking</div>
                     <div class="card-back">Chloride Process</div>
                 </div>
             </div>
-            <div class="flip-card" data-page="geologie">
-                <div class="card-inner">
-                    <div class="card-front">🪨 Geologie</div>
-                    <div class="card-back">Ilmenite Sands</div>
-                </div>
-            </div>
-            <div class="flip-card" data-page="vindplaatsen">
-                <div class="card-inner">
-                    <div class="card-front">📍 Vindplaatsen</div>
-                    <div class="card-back">Richards Bay</div>
-                </div>
-            </div>
+
+            <!-- 5. Productie (Output) -->
             <div class="flip-card" data-page="productie">
                 <div class="card-inner">
                     <div class="card-front">📊 Productie</div>
                     <div class="card-back">7.8M tons TiO₂</div>
                 </div>
             </div>
-            <div class="flip-card" data-page="prijsontwikkeling">
+
+            <!-- 6. Toepassingen (End use) -->
+            <div class="flip-card" data-page="toepassingen">
+                <div class="card-inner">
+                    <div class="card-front">🎯 Toepassingen</div>
+                    <div class="card-back">TiO₂ 55%, Aerospace</div>
+                </div>
+            </div>
+
+            <!-- 7. Prijsontwikkeling (Economics) -->
+            <div class="flip-card" data-page="price">
                 <div class="card-inner">
                     <div class="card-front">💰 Prijsontwikkeling</div>
-                    <div class="card-back">LIVE $650/ton</div>
+                    <div class="card-back">LIVE $1,490/ton</div>
                 </div>
             </div>
         </div>
