@@ -1,10 +1,9 @@
-// 🔥 TITANIUM 8.5-YEAR GEOLOGY DASHBOARD - FULL 207 POINTS COMPLETE
-
+// 🔥 TITANIUM 8.5-YEAR GEOLOGY DASHBOARD - PRODUCTION READY
 class CommodityDashboard {
   constructor() {
     this.apiKey = '10edfc9e07416eafbcf71e7c387872f49fc6d09e';
     this.apiBase = '/commoditic/api/v1';
-    this.commodity = 'titanium';  
+    this.commodity = 'titanium';
     this.dateFrom = '2017-07-13';
     this.dateTo = '2025-12-31';
 
@@ -20,7 +19,7 @@ class CommodityDashboard {
     this.updateStatus = this.updateStatus.bind(this);
     this.init();
   }
-  
+
   init() {
     this.loadLocalData();
     this.bindEvents();
@@ -43,8 +42,8 @@ class CommodityDashboard {
 
   async refreshData() {
     localStorage.removeItem(this.data.localStorageKey);
-    this.updateStatus('🔄 Laden Titanium 8.5-JAAR MAAND data...', 'loading');
-    
+    this.updateStatus('🔄 Loading Titanium 8.5-YEAR MONTHLY data...', 'loading');
+
     try {
       const [currentData, historicalData] = await Promise.all([
         this.fetchCurrentPrice(),
@@ -55,7 +54,7 @@ class CommodityDashboard {
       this.data.historical = historicalData;
       this.data.advanced = this.calculateAdvancedStats(historicalData);
 
-      console.log('📊 TITANIUM 8.5-JAAR MAAND:', {
+      console.log('📊 TITANIUM 8.5-YEAR:', {
         months: historicalData.length,
         years: this.data.advanced.years,
         low: `$${this.data.advanced.cycleLow}`,
@@ -65,10 +64,10 @@ class CommodityDashboard {
 
       this.saveLocalData();
       this.updateAll();
-      this.updateStatus(`✅ ${historicalData.length} MAANDEN geladen (2017-${this.dateTo.slice(0,4)})`, 'success');
+      this.updateStatus(`✅ ${historicalData.length} MONTHS loaded (2017-${this.dateTo.slice(0,4)})`, 'success');
     } catch (error) {
       console.error('API Error:', error);
-      this.updateStatus('❌ API fout - Check trial limiet', 'error');
+      this.updateStatus('❌ API error - Check trial limit', 'error');
     }
   }
 
@@ -76,18 +75,15 @@ class CommodityDashboard {
     const url = `${this.apiBase}/commodities?key=${this.apiKey}&name=${this.commodity}`;
     const response = await fetch(url);
     const data = await response.json();
-    
-    console.log('💰 CURRENT PRICE RAW:', {
-      url,
-      fullData: data,
-      isArray: Array.isArray(data),
-      hasResults: !!data.results,
-      keys: data ? Object.keys(data) : 'NO DATA',
-      firstItem: data[0] || data.results?.[0] || 'EMPTY'
-    });
-    
+     console.log('📡 RAW API RESPONSE:', data);
+  console.log('📡 API STRUCTURE:', {
+    isArray: Array.isArray(data),
+    hasResults: !!data.results,
+    firstItem: Array.isArray(data) ? data[0] : data.results?.[0],
+    keys: data ? Object.keys(data) : 'NO DATA'
+  });
     const result = Array.isArray(data) ? data[0] || {} : data.results?.[0] || {};
-    
+
     return {
       price: parseFloat(result.price || 0),
       unit: 'USD/t',
@@ -95,7 +91,9 @@ class CommodityDashboard {
       d_perc_change: parseFloat(result.d_perc_change || result.w_perc_change || 0),
       w_perc_change: parseFloat(result.w_perc_change || 0)
     };
-  }
+    }
+    
+    
 
   async fetchHistoricalData() {
     const dateFrom = '2011-01-01';
@@ -103,18 +101,7 @@ class CommodityDashboard {
     const url = `${this.apiBase}/commodities_history?key=${this.apiKey}&name=${this.commodity}&date_from=${dateFrom}&date_to=${dateTo}`;
     const response = await fetch(url);
     const data = await response.json();
-    
-    console.log('📊 HISTORICAL RAW:', {
-      url,
-      fullData: data,
-      outputExists: !!data.output,
-      outputKeys: data.output ? Object.keys(data.output) : 'NO OUTPUT',
-      firstPrices: data.output?.[0]?.prices?.slice(0, 3),
-      totalPrices: data.output?.[0]?.prices?.length || 'N/A',
-      datesSample: data.output?.[0]?.prices ? 
-        data.output[0].prices.slice(0, 3).map(p => p.date) : 'NO DATES'
-    });
-    
+
     let prices = [];
     if (data.output?.[0]?.prices) {
       prices = data.output[0].prices;
@@ -122,44 +109,24 @@ class CommodityDashboard {
       prices = data.output;
     }
 
-    prices = prices
+    return prices
       .map(p => ({ date: p.date, price: parseFloat(p.price || 0) }))
       .filter(p => p.price > 0 && !isNaN(p.price))
       .sort((a, b) => new Date(a.date) - new Date(b.date))
-      .filter((p, i, self) => i === self.findIndex(t => t.date === p.date));
-    
-    return prices.map(p => ({ ...p, unit: 'USD/t' }));
+      .filter((p, i, self) => i === self.findIndex(t => t.date === p.date))
+      .map(p => ({ ...p, unit: 'USD/t' }));
   }
 
   calculateAdvancedStats(historical) {
     const prices = historical.map(p => parseFloat(p.price)).filter(p => !isNaN(p));
     if (prices.length < 6) {
-      return {
-        volatility: 'N/A',
-        rsi: 'N/A',
-        ma20: 'N/A',
-        totalChange: 0,
-        cycleLow: 'N/A',
-        cycleHigh: 'N/A',
-        years: 0,
-        dataPoints: historical.length,
-        daysSpan: 0,
-        recommendation: { text: 'Insufficient data', mining: 'N/A', stocks: 'N/A', score: 0, reasons: [] }
-      };
+      return this.getInsufficientDataStats(historical.length);
     }
 
     const startDate = new Date(historical[0]?.date);
     const endDate = new Date(historical[historical.length - 1]?.date);
     const actualDaysSpan = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
     const yearsSpan = (actualDaysSpan / 365.25).toFixed(1);
-
-    console.log('📏 MONTHLY SPAN:', {
-      start: startDate.toISOString().split('T')[0],
-      end: endDate.toISOString().split('T')[0],
-      months: historical.length,
-      daysSpan: actualDaysSpan,
-      years: yearsSpan
-    });
 
     return {
       volatility: this.calculateVolatility(prices).toFixed(2) + '%',
@@ -172,6 +139,27 @@ class CommodityDashboard {
       dataPoints: historical.length,
       daysSpan: actualDaysSpan,
       recommendation: this.getMiningRecommendation(prices)
+    };
+  }
+
+  getInsufficientDataStats(dataPoints) {
+    return {
+      volatility: 'N/A',
+      rsi: 'N/A',
+      ma20: 'N/A',
+      totalChange: 0,
+      cycleLow: 'N/A',
+      cycleHigh: 'N/A',
+      years: 0,
+      dataPoints,
+      daysSpan: 0,
+      recommendation: { 
+        text: 'Insufficient data', 
+        mining: 'N/A', 
+        stocks: 'N/A', 
+        score: 0, 
+        reasons: [] 
+      }
     };
   }
 
@@ -191,7 +179,7 @@ class CommodityDashboard {
     if (prices.length < period + 1) return null;
     const changes = [];
     for (let i = 1; i < prices.length; i++) changes.push(prices[i] - prices[i - 1]);
-    
+
     let avgGain = 0, avgLoss = 0;
     for (let i = 0; i < period; i++) {
       avgGain += Math.max(0, changes[i]);
@@ -199,63 +187,16 @@ class CommodityDashboard {
     }
     avgGain /= period;
     avgLoss /= period;
-    
+
     for (let i = period; i < changes.length; i++) {
       avgGain = (avgGain * (period - 1) + Math.max(0, changes[i])) / period;
       avgLoss = (avgLoss * (period - 1) + Math.max(0, -changes[i])) / period;
     }
-    
+
     if (avgLoss === 0) return 100;
     const rs = avgGain / avgLoss;
     return 100 - (100 / (1 + rs));
   }
-
-  getMiningRecommendation(prices) {
-  const current = prices[prices.length - 1];
-  const volatility = this.calculateVolatility(prices);
-  const rsi = this.calculateRSI(prices, 6);
-  const ma6 = this.calculateMovingAverage(prices, 6).slice(-1)[0];
-  const ma24 = this.calculateMovingAverage(prices, 24).slice(-1)[0];
-  const cycleHigh = Math.max(...prices);
-  const cycleLow = Math.min(...prices);
-  const priceVsCycleHigh = current / cycleHigh;
-
-  let score = 0;
-  const reasons = [];
-
-  // 🔥 PRICE THRESHOLDS (geology-based)
-  if (current > 20) { score += 3; reasons.push('💰 >$20 = Viable'); }
-  if (current > 35) { score += 2; reasons.push('📊 >$35 = Strong'); }
-  if (current > cycleHigh * 0.85) { score += 2; reasons.push(`🎯 Near cycle high (${(priceVsCycleHigh*100).toFixed(0)}%)`); }
-
-  // 🔥 TECHNICAL SIGNALS
-  if (rsi && rsi > 40 && rsi < 70) { score += 1; reasons.push(`✅ RSI ${rsi.toFixed(0)} (neutral zone)`); }
-  if (current > ma6) { score += 2; reasons.push('📈 > MA6 = Profitable'); }
-  if (ma6 > ma24) { score += 1; reasons.push('🔥 MA6>MA24 = Bull confirmed'); }
-
-  // 🔥 VOLATILITY (multi-timeframe)
-  if (volatility < 12) { score += 1; reasons.push(`✅ Vol ${volatility.toFixed(1)}% (manageable)`); }
-  if (this.calculateVolatility(prices.slice(-6)) < 6) { score += 1; reasons.push('🟢 6m vol LOW = Stable ops'); }
-
-  // 🔥 RISK FACTORS
-  if (current < cycleLow * 1.5) { score -= 1; reasons.push('⚠️ Near cycle low zone'); }
-  if (volatility > 15) { score -= 2; reasons.push(`❌ Vol ${volatility.toFixed(1)}% = High risk`); }
-
-  // 🔥 NEW DECISION MATRIX
-  const text = score >= 7 ? "🟢 MAX PRODUCTION + EXPLORE NEW" : 
-               score >= 4 ? "🟢 RUN FULL + HEDGE 20%" : 
-               score >= 1 ? "🟡 MAINTAIN + MONITOR" : "🔴 SHUT DOWN";
-
-  return {
-    text,
-    mining: score >= 7 ? "MAX+EXPLORE" : score >= 4 ? "FULL+HEDGE" : score >= 1 ? "MAINTAIN" : "SHUTDOWN",
-    stocks: score >= 7 ? "BUY" : score >= 4 ? "HOLD" : score >= 1 ? "PARTIAL" : "SELL",
-    score,
-    reasons,
-    keyMetrics: { current, ma6: ma6.toFixed(1), ma24: ma24.toFixed(1), rsi: rsi?.toFixed(0), vol: volatility.toFixed(1) }
-  };
-}
-
 
   calculateMovingAverage(prices, period) {
     return prices.map((price, i) => {
@@ -265,11 +206,62 @@ class CommodityDashboard {
     });
   }
 
+  getMiningRecommendation(prices) {
+    const current = prices[prices.length - 1];
+    const volatility = this.calculateVolatility(prices);
+    const rsi = this.calculateRSI(prices, 6);
+    const ma6 = this.calculateMovingAverage(prices, 6).slice(-1)[0];
+    const ma24 = this.calculateMovingAverage(prices, 24).slice(-1)[0];
+    const cycleHigh = Math.max(...prices);
+    const cycleLow = Math.min(...prices);
+    const priceVsCycleHigh = current / cycleHigh;
+
+    let score = 0;
+    const reasons = [];
+
+    // 🔥 PRICE THRESHOLDS (geology-based)
+    if (current > 20) { score += 3; reasons.push('💰 >$20 = Viable'); }
+    if (current > 35) { score += 2; reasons.push('📊 >$35 = Strong'); }
+    if (current > cycleHigh * 0.85) { score += 2; reasons.push(`🎯 Near cycle high (${(priceVsCycleHigh * 100).toFixed(0)}%)`); }
+
+    // 🔥 TECHNICAL SIGNALS
+    if (rsi && rsi > 40 && rsi < 70) { score += 1; reasons.push(`✅ RSI ${rsi.toFixed(0)} (neutral zone)`); }
+    if (current > ma6) { score += 2; reasons.push('📈 > MA6 = Profitable'); }
+    if (ma6 > ma24) { score += 1; reasons.push('🔥 MA6>MA24 = Bull confirmed'); }
+
+    // 🔥 VOLATILITY (multi-timeframe)
+    if (volatility < 12) { score += 1; reasons.push(`✅ Vol ${volatility.toFixed(1)}% (manageable)`); }
+    if (this.calculateVolatility(prices.slice(-6)) < 6) { score += 1; reasons.push('🟢 6m vol LOW = Stable ops'); }
+
+    // 🔥 RISK FACTORS
+    if (current < cycleLow * 1.5) { score -= 1; reasons.push('⚠️ Near cycle low zone'); }
+    if (volatility > 15) { score -= 2; reasons.push(`❌ Vol ${volatility.toFixed(1)}% = High risk`); }
+
+    const text = score >= 7 ? '🟢 MAX PRODUCTION + EXPLORE NEW' : 
+                 score >= 4 ? '🟢 RUN FULL + HEDGE 20%' : 
+                 score >= 1 ? '🟡 MAINTAIN + MONITOR' : '🔴 SHUT DOWN';
+
+    return {
+      text,
+      mining: score >= 7 ? 'MAX+EXPLORE' : score >= 4 ? 'FULL+HEDGE' : score >= 1 ? 'MAINTAIN' : 'SHUTDOWN',
+      stocks: score >= 7 ? 'BUY' : score >= 4 ? 'HOLD' : score >= 1 ? 'PARTIAL' : 'SELL',
+      score,
+      reasons,
+      keyMetrics: { 
+        current, 
+        ma6: ma6.toFixed(1), 
+        ma24: ma24.toFixed(1), 
+        rsi: rsi?.toFixed(0), 
+        vol: volatility.toFixed(1) 
+      }
+    };
+  }
+
   updateAll() {
     this.updateMetrics();
     this.updateAdvancedStats();
-    this.updateDataSummary();     
-    this.updateGlossary();  
+    this.updateDataSummary();
+    this.updateGlossary();
     this.updateTable();
     this.updateCharts();
   }
@@ -280,7 +272,7 @@ class CommodityDashboard {
 
     const priceEl = document.getElementById('currentPrice');
     if (priceEl) priceEl.textContent = `$${current.price?.toLocaleString() || 0} USD/t`;
-    
+
     const dayChange = current.day_price_change;
     const dailyEl = document.getElementById('dailyChange');
     if (dailyEl && dayChange !== undefined) {
@@ -299,25 +291,25 @@ class CommodityDashboard {
     if (trendEl) {
       const prices = this.data.historical.map(p => parseFloat(p.price)).filter(p => !isNaN(p));
       const change = prices.length > 1 ? ((prices[prices.length - 1] - prices[0]) / prices[0]) * 100 : 0;
-      const text = change > 100 ? '📈 8.5jr BULL' : change > 0 ? '➡️ STABIL' : '📉 BEAR';
+      const text = change > 100 ? '📈 8.5yr BULL' : change > 0 ? '➡️ STABIL' : '📉 BEAR';
       trendEl.textContent = text;
       trendEl.className = `trend-indicator trend-${change >= 0 ? 'positive' : 'negative'}`;
-      trendEl.title = `${change.toFixed(1)}% (${prices.length} MAANDEN)`;
+      trendEl.title = `${change.toFixed(1)}% (${prices.length} MONTHS)`;
     }
   }
 
   updateAdvancedStats() {
     const stats = this.data.advanced;
-    
+
     const volEl = document.getElementById('volatility');
     if (volEl) volEl.textContent = stats.volatility || 'N/A';
-    
+
     const rsiEl = document.getElementById('rsi');
     if (rsiEl) rsiEl.textContent = stats.rsi || 'N/A';
-    
+
     const ma20El = document.getElementById('ma20');
     if (ma20El) ma20El.textContent = stats.ma20 ? `$${stats.ma20}` : 'N/A';
-    
+
     const totalDaysEl = document.getElementById('totalDays');
     if (totalDaysEl) {
       const spanText = `${stats.dataPoints || 0} mnd | ${stats.daysSpan || 0}d (${stats.years || 0}jr)`;
@@ -328,11 +320,11 @@ class CommodityDashboard {
   updateDataSummary() {
     const stats = this.data.advanced;
     if (!this.data.historical.length || !stats) return;
-    
+
     const today = this.data.current?.price || this.data.historical.slice(-1)[0]?.price || 0;
     const rec = stats.recommendation;
-    const summary = `Titanium Live: <strong>$${today.toLocaleString()}</strong> | ${parseFloat(stats.totalChange) > 0 ? '📈' : '📉'} ${Math.abs(parseFloat(stats.totalChange)).toFixed(1)}% | RSI ${stats.rsi} | Vol ${stats.volatility} | <strong>${rec.text}</strong><br><small>Mijn: ${rec.mining} | Aandelen: ${rec.stocks} | ${stats.cycleLow}→${stats.cycleHigh}</small>`;
-    
+    const summary = `Titanium Live: <strong>$${today.toLocaleString()}</strong> | ${parseFloat(stats.totalChange) > 0 ? '📈' : '📉'} ${Math.abs(parseFloat(stats.totalChange)).toFixed(1)}% | RSI ${stats.rsi} | Vol ${stats.volatility} | <strong>${rec.text}</strong><br><small>Mining: ${rec.mining} | Stocks: ${rec.stocks} | ${stats.cycleLow}→${stats.cycleHigh}</small>`;
+
     const summaryEl = document.getElementById('dataSummary');
     if (summaryEl) {
       summaryEl.innerHTML = summary;
@@ -343,11 +335,11 @@ class CommodityDashboard {
   updateGlossary() {
     const glossaryGrid = document.getElementById('glossary-grid');
     if (!glossaryGrid || glossaryGrid.children.length > 0) return;
-    
+
     glossaryGrid.innerHTML = `
-      <div class="glossary-item"><span class="term">MA6</span><span>6-maands gemiddelde</span></div>
-      <div class="glossary-item"><span class="term">RSI</span><span>6-maands (45-65 = mijnen zone)</span></div>
-      <div class="glossary-item"><span class="term">Volatiliteit</span><span>Maandelijks risico (12x geannualiseerd)</span></div>
+      <div class="glossary-item"><span class="term">MA6</span><span>6-month average</span></div>
+      <div class="glossary-item"><span class="term">RSI</span><span>6-month (45-65 = mining zone)</span></div>
+      <div class="glossary-item"><span class="term">Volatility</span><span>Monthly risk (12x annualized)</span></div>
     `;
   }
 
@@ -355,13 +347,13 @@ class CommodityDashboard {
     const hist = this.data.historical.slice(-12);
     const tbody = document.querySelector('#priceTable tbody');
     if (!tbody || !hist.length) return;
-    
+
     tbody.innerHTML = hist.map((p, i) => {
       const price = parseFloat(p.price);
-      const prevPrice = i > 0 ? parseFloat(hist[i-1].price) : price;
+      const prevPrice = i > 0 ? parseFloat(hist[i - 1].price) : price;
       const monthChange = prevPrice ? ((price - prevPrice) / prevPrice * 100) : 0;
       const trendClass = monthChange >= 0 ? 'positive' : 'negative';
-      
+
       return `
         <tr>
           <td>${new Date(p.date).toLocaleDateString('nl-NL')}</td>
@@ -374,172 +366,162 @@ class CommodityDashboard {
   }
 
   updateCharts() {
-  if (typeof Chart === 'undefined' || !this.data.historical.length) return;
+    if (typeof Chart === 'undefined' || !this.data.historical.length) return;
 
-  this.destroyCharts();
-  const prices = this.data.historical.map(p => parseFloat(p.price));
-  const ma6 = this.calculateMovingAverage(prices, 6);
-  const ma24 = this.calculateMovingAverage(prices, Math.min(24, prices.length));
+    this.destroyCharts();
+    const prices = this.data.historical.map(p => parseFloat(p.price));
+    const ma6 = this.calculateMovingAverage(prices, 6);
+    const ma24 = this.calculateMovingAverage(prices, Math.min(24, prices.length));
 
-  // 🔥 1. PRICE CHART - Full 103 points + MA6 overlay
-  const priceCtx = document.getElementById('priceChart')?.getContext('2d');
-  if (priceCtx) {
-    this.charts.price = new Chart(priceCtx, {
-      type: 'line',
-      data: {
-        labels: this.data.historical.map(p => new Date(p.date).toLocaleDateString('nl-NL')),
-        datasets: [
-          { 
-            label: 'Titanium (103 mnd)', 
+    // 🔥 1. PRICE CHART - Full history + smooth
+    const priceCtx = document.getElementById('priceChart')?.getContext('2d');
+    if (priceCtx) {
+      this.charts.price = new Chart(priceCtx, {
+        type: 'line',
+        data: {
+          labels: this.data.historical.map(p => new Date(p.date).toLocaleDateString('nl-NL')),
+          datasets: [{
+            label: 'Titanium (8.5yr)', 
             data: prices,
             borderColor: '#4682b4', 
             backgroundColor: 'rgba(70, 130, 180, 0.1)',
             fill: true, 
             tension: 0.3,
             pointRadius: 1.5
-          }
-          // 🔥 MA6 REMOVED from price chart - goes to MA comparison!
-        ]
-      },
-      options: { responsive: true, maintainAspectRatio: false }
-    });
-  }
-
-  // 🔥 2. YEARLY CHART - Unchanged
-  const yearlyCtx = document.getElementById('yearlyChart')?.getContext('2d');
-  if (yearlyCtx) {
-    const yearlyAvg = [];
-    for (let i = 0; i <= 8; i++) {
-      const year = 2017 + i;
-      const yearData = this.data.historical.filter(p => new Date(p.date).getFullYear() === year);
-      yearlyAvg.push(yearData.length ? yearData.reduce((sum, p) => sum + parseFloat(p.price), 0) / yearData.length : 0);
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+      });
     }
-    this.charts.yearly = new Chart(yearlyCtx, {
-      type: 'line',
-      data: {
-        labels: ['17', '18', '19', '20', '21', '22', '23', '24', '25'],
-        datasets: [{ label: 'Jaarlijks Gemiddelde', data: yearlyAvg, borderColor: '#4682b4', fill: true, tension: 0.4 }]
-      },
-      options: { responsive: true, maintainAspectRatio: false }
-    });
-  }
 
-  // 🔥 3. MA VERGELIJKING (180d) - NEW!
-  // Replace your MA Comparison section in updateCharts():
-const maCtx = document.getElementById('maComparisonChart')?.getContext('2d');
-if (maCtx) {
-  const recent180 = prices.slice(-Math.min(180, prices.length));
-  const recentLabels = this.data.historical.slice(-Math.min(180, prices.length)).map(p => new Date(p.date).toLocaleDateString('nl-NL'));
-  
-  this.charts.maComparison = new Chart(maCtx, {
-    type: 'line',
-    data: {
-      labels: recentLabels,
-      datasets: [
-        { 
-          label: 'Prijs', 
-          data: recent180, 
-          borderColor: '#4682b4', 
-          backgroundColor: 'rgba(70, 130, 180, 0.1)',
-          fill: true, 
-          tension: 0.4,  // 🔥 SMOOTH
-          pointRadius: 0
-        },
-        { 
-          label: 'MA6', 
-          data: ma6.slice(-Math.min(180, ma6.length)), 
-          borderColor: '#4ecdc4', 
-          borderWidth: 3, 
-          tension: 0.4,  // 🔥 SMOOTH
-          pointRadius: 0,
-          fill: false
-        },
-        { 
-          label: 'MA24', 
-          data: ma24.slice(-Math.min(180, ma24.length)), 
-          borderColor: '#ff6b6b', 
-          borderWidth: 3, 
-          tension: 0.4,  // 🔥 SMOOTH
-          pointRadius: 0,
-          fill: false
-        }
-      ]
-    },
-    options: { 
-      responsive: true, 
-      maintainAspectRatio: false,
-      scales: {
-        x: { ticks: { maxTicksLimit: 12 } },
-        y: {
-          ticks: {
-            callback: function(value) { return '$' + value.toLocaleString(); }
-          }
-        }
-      },
-      interaction: { intersect: false, mode: 'index' }
-    }
-  });
-}
-
-
-  // 🔥 4. VOLATILITY CHART - Unchanged
-  // 🔥 4. VOLATILITY CHART - With % labels
-// 🔥 4. VOLATILITY CHART - SIMPLIFIED % LABELS
-const volCtx = document.getElementById('volatilityChart')?.getContext('2d');
-if (volCtx) {
-  const volFull = this.calculateVolatility(prices);
-  const vol2yr = this.calculateVolatility(prices.slice(-24));
-  const vol6mo = this.calculateVolatility(prices.slice(-6));
-  
-  this.charts.volatility = new Chart(volCtx, {
-    type: 'doughnut',
-    data: {
-      labels: ['8.5jr', '2jr', '6m'],
-      datasets: [{ 
-        data: [volFull, vol2yr, vol6mo], 
-        backgroundColor: ['#ff6b6b', '#4ecdc4', '#45b7d1']
-      }]
-    },
-    options: { 
-      responsive: true, 
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: {
-            generateLabels: function(chart) {
-              const data = chart.data;
-              if (data.labels.length && data.datasets.length) {
-                return data.labels.map((label, i) => {
-                  const value = data.datasets[0].data[i];
-                  const color = data.datasets[0].backgroundColor[i];
-                  return {
-                    text: `${label}: ${value.toFixed(1)}%`,
-                    fillStyle: color,
-                    strokeStyle: color,
-                    lineWidth: 2
-                  };
-                });
-              }
-              return [];
-            }
-          }
-        },
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              return `${context.label}: ${context.parsed.toFixed(1)}%`;
-            }
-          }
-        }
+    // 🔥 2. YEARLY CHART
+    const yearlyCtx = document.getElementById('yearlyChart')?.getContext('2d');
+    if (yearlyCtx) {
+      const yearlyAvg = [];
+      for (let i = 0; i <= 8; i++) {
+        const year = 2017 + i;
+        const yearData = this.data.historical.filter(p => new Date(p.date).getFullYear() === year);
+        yearlyAvg.push(yearData.length ? yearData.reduce((sum, p) => sum + parseFloat(p.price), 0) / yearData.length : 0);
       }
+      this.charts.yearly = new Chart(yearlyCtx, {
+        type: 'line',
+        data: {
+          labels: ['17', '18', '19', '20', '21', '22', '23', '24', '25'],
+          datasets: [{ label: 'Yearly Average', data: yearlyAvg, borderColor: '#4682b4', fill: true, tension: 0.4 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+      });
     }
-  });
-}
 
+    // 🔥 3. MA COMPARISON (180d)
+    const maCtx = document.getElementById('maComparisonChart')?.getContext('2d');
+    if (maCtx) {
+      const recent180 = prices.slice(-Math.min(180, prices.length));
+      const recentLabels = this.data.historical.slice(-Math.min(180, prices.length)).map(p => new Date(p.date).toLocaleDateString('nl-NL'));
 
-}
+      this.charts.maComparison = new Chart(maCtx, {
+        type: 'line',
+        data: {
+          labels: recentLabels,
+          datasets: [
+            { 
+              label: 'Price', 
+              data: recent180, 
+              borderColor: '#4682b4', 
+              backgroundColor: 'rgba(70, 130, 180, 0.1)',
+              fill: true, 
+              tension: 0.4,
+              pointRadius: 0
+            },
+            { 
+              label: 'MA6', 
+              data: ma6.slice(-Math.min(180, ma6.length)), 
+              borderColor: '#4ecdc4', 
+              borderWidth: 3, 
+              tension: 0.4,
+              pointRadius: 0,
+              fill: false
+            },
+            { 
+              label: 'MA24', 
+              data: ma24.slice(-Math.min(180, ma24.length)), 
+              borderColor: '#ff6b6b', 
+              borderWidth: 3, 
+              tension: 0.4,
+              pointRadius: 0,
+              fill: false
+            }
+          ]
+        },
+        options: { 
+          responsive: true, 
+          maintainAspectRatio: false,
+          scales: {
+            x: { ticks: { maxTicksLimit: 12 } },
+            y: {
+              ticks: {
+                callback: function(value) { return '$' + value.toLocaleString(); }
+              }
+            }
+          },
+          interaction: { intersect: false, mode: 'index' }
+        }
+      });
+    }
 
+    // 🔥 4. VOLATILITY CHART
+    const volCtx = document.getElementById('volatilityChart')?.getContext('2d');
+    if (volCtx) {
+      const volFull = this.calculateVolatility(prices);
+      const vol2yr = this.calculateVolatility(prices.slice(-24));
+      const vol6mo = this.calculateVolatility(prices.slice(-6));
+
+      this.charts.volatility = new Chart(volCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['8.5yr', '2yr', '6m'],
+          datasets: [{ 
+            data: [volFull, vol2yr, vol6mo], 
+            backgroundColor: ['#ff6b6b', '#4ecdc4', '#45b7d1']
+          }]
+        },
+        options: { 
+          responsive: true, 
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                generateLabels: function(chart) {
+                  const data = chart.data;
+                  if (data.labels.length && data.datasets.length) {
+                    return data.labels.map((label, i) => {
+                      const value = data.datasets[0].data[i];
+                      const color = data.datasets[0].backgroundColor[i];
+                      return {
+                        text: `${label}: ${value.toFixed(1)}%`,
+                        fillStyle: color,
+                        strokeStyle: color,
+                        lineWidth: 2
+                      };
+                    });
+                  }
+                  return [];
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.label}: ${context.parsed.toFixed(1)}%`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+  }
 
   destroyCharts() {
     Object.values(this.charts).forEach(chart => chart?.destroy());
