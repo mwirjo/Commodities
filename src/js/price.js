@@ -2,8 +2,9 @@
 class CommodityDashboard {
   constructor() {
     this.apiKey = import.meta.env.VITE_METALPRICE_KEY || 'fallback-key';
-    this.apiBase = import.meta.env.DEV ? '/commoditic/api/v1' : import.meta.env.VITE_API_BASE;
-
+    this.apiBase = import.meta.env.DEV 
+    ? '/commoditic/api/v1' 
+    : 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://api.commoditic.com/api/v1');
     this.commodity = 'titanium';
     this.dateFrom = '2017-07-13';
     this.dateTo = '2025-12-31';
