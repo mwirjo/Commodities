@@ -223,10 +223,29 @@ body {
     color: #333;
 }
 
+.forecast-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+@media (min-width: 768px) {
+    .metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+        /* 4 cards */
+    }
+
+    .forecast-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ADVANCED STATS */
 .advanced-stats {
     padding: 30px;
 }
+
 
 .advanced-stats h3 {
     color: #ffd700;
@@ -323,6 +342,38 @@ body {
     font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+.frequency-toggle {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 2rem 0 1rem 0;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+}
+
+.freq-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--border-color);
+    background: transparent;
+    color: var(--text-primary);
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.freq-btn:hover {
+    background: var(--hover-bg);
+}
+
+.freq-btn.active {
+    background: linear-gradient(135deg, #4682b4, #5a9bd4);
+    color: white;
+    border-color: #4682b4;
+    box-shadow: 0 4px 12px rgba(70, 130, 180, 0.3);
 }
 
 #priceTable td {

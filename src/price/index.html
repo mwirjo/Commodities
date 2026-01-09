@@ -19,6 +19,8 @@
             <p class="subtitle">Economische Geologie | 8.5-Jaar Analyse (2017-2025)</p>
         </header>
 
+
+
         <!-- EXECUTIVE SUMMARY -->
         <section class="executive-summary">
             <h2>📊 Markt Dashboard</h2>
@@ -27,7 +29,7 @@
             </div>
         </section>
 
-        <!-- LIVE METRICS -->
+        <!-- LIVE METRICS + FORECAST -->
         <section class="metrics-grid">
             <div class="metric-card current-price">
                 <h3>💎 Live Prijs</h3>
@@ -39,11 +41,34 @@
                 <h4>Dag ∆</h4>
                 <div class="price-change" id="dailyChange">-</div>
             </div>
+            <div class="metric-card changes">
+                <h3>⏱️ Timeframe ∆</h3>
+                <div>Maand: <span id="monthChange">-</span></div>
+                <div>Jaar: <span id="yearChange">-</span></div>
+            </div>
             <div class="metric-card trend">
                 <h3>🎯 Cyclus Trend</h3>
                 <div class="trend-indicator" id="trendIndicator">-</div>
             </div>
-        </section>
+            </div>
+            
+            <div class="frequency-toggle">
+                <button id="freq-month" class="freq-btn active">📅 8.5yr Monthly</button>
+                <button id="freq-week" class="freq-btn">📊 2yr Weekly</button>
+                <button id="freq-day" class="freq-btn">📈 1yr Daily</button>
+            </div>
+
+            <!-- 2026 FORECAST -->
+            <div class="forecast-grid">
+                <div class="metric-card forecast">
+                    <h3>📅 2026 Voorspelling</h3>
+                    <div>Q1: <strong id="q1Forecast">-</strong></div>
+                    <div>Q2: <strong id="q2Forecast">-</strong></div>
+                    <div>Q3: <strong id="q3Forecast">-</strong></div>
+                    <div>Jaar Avg: <strong id="q4Forecast">-</strong></div>
+                </div>
+            </div>
+
 
         <!-- ADVANCED STATS -->
         <section class="advanced-stats">
