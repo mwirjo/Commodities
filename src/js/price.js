@@ -1,8 +1,8 @@
 // 🔥 TITANIUM 8.5-YEAR GEOLOGY DASHBOARD - PRODUCTION READY
 class CommodityDashboard {
   constructor() {
-    this.apiKey = '10edfc9e07416eafbcf71e7c387872f49fc6d09e';
-    this.apiBase = '/commoditic/api/v1';
+    this.apiKey = 'VITE_METALPRICE_KEY';
+    this.apiBase = 'https://api.commoditic.com/api/v1';
     this.commodity = 'titanium';
     this.dateFrom = '2017-07-13';
     this.dateTo = '2025-12-31';
