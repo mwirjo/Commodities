@@ -2,9 +2,12 @@
 class CommodityDashboard {
   constructor() {
     this.apiKey = import.meta.env.VITE_METALPRICE_KEY || 'fallback-key';
-    this.apiBase = import.meta.env.DEV 
-    ? '/commoditic/api/v1' 
-    : 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://api.commoditic.com/api/v1');
+    if (import.meta.env.DEV) {
+    this.apiBase = '/commoditic/api/v1';  // Vite proxy ✅
+  } else {
+    // CORS proxy that preserves query params correctly
+    this.apiBase = 'https://corsproxy.io/?' + encodeURIComponent('https://api.commoditic.com/api/v1');
+  }
     this.commodity = 'titanium';
     this.dateFrom = '2017-07-13';
     this.dateTo = '2025-12-31';
