@@ -546,7 +546,7 @@ class CommodityDashboard {
       );
     }
     
-    console.log('📊 YEARLY AVERAGES:', yearlyAvg.map((v,i) => `20${17+i}: ${v.toFixed(1)}`));
+    console.log('📊 YEARLY AVERAGES:', yearlyAvg.map((v,i) => `20${17 + i}: ${v.toFixed(1)}`));
     
     this.charts.yearly = new Chart(yearlyCtx, {
       type: 'line',

@@ -1,0 +1,22 @@
+.presentation {
+    padding: clamp(3rem, 6vw, 6rem) 8%;
+    color: white
+}
+
+.slide {
+    margin-bottom: clamp(4rem, 8vw, 6rem);
+}
+
+.slide h3 {
+    margin-bottom: 1rem;
+}
+
+.slide p {
+    font-size: var(--large-font);
+    max-width: 900px;
+}
+
+.stats {
+    font-size: var(--large-font);
+    line-height: 1.8;
+}

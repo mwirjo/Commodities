@@ -1,0 +1,103 @@
+{
+  "mining": {
+    "title": "Mining en productie van titaan",
+
+    "points": [
+      {
+        "text": "Titaan wordt gewonnen uit mineralen zoals rutiel.",
+        "photoIds": [0]
+      },
+      {
+        "text": "Rutile wordt verhit met chloor en koolstof.",
+        "photoIds": [0, 1, 2]
+      },
+      {
+        "text": "titaniumtetrachloride (TiCl₄) wordt gevormd.",
+        "photoIds": [3]
+      },
+      {
+        "text": "Het Kroll-proces zet TiCl₄ om in vast titanium.",
+        "photoIds": [3,4]
+      },
+      {
+        "text": "Het eindproduct is titanium sponge, dat verder wordt gesmolten tot ingots.",
+        "photoIds": [5]
+      }
+    ],
+
+
+    "krollProcess": {
+      "src": "kroll.jpg",
+      "alt": "Kroll proces",
+      "caption": "Afb.1 Het Kroll-proces waarbij titaanerts wordt omgezet in titaan metaal"
+    },
+
+    "processGallery": [
+      {
+        "src": "https://www.mindat.org/imagecache/fd/91/07848360017362065921670.jpg",
+        "alt": "Rutile erts",
+        "caption": "Rutile – titaanerts"
+      },
+      {
+        "src": "https://cdn1.byjus.com/wp-content/uploads/2022/11/Chlorine-Gas-Cl2-.png",
+        "alt": "Cl2",
+        "caption": "chloor"
+      },
+      {
+        "src": "https://www.eastcarb.com/wp-content/uploads/2024/10/What-is-Petroleum-Coke.png",
+        "alt": "petroleum coke",
+        "caption": "Petroleum coke"
+      },
+      {
+        "src": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Sample_of_Titanium_tetrachloride_01.jpg",
+        "alt": "tiCl4",
+        "caption": "titanium tetrachloride"
+      },
+      {
+        "src": "/images/logos/ti-sponge.jpg",
+        "alt": "Titanium sponge",
+        "caption": "Titanium sponge"
+      },
+      {
+        "src": "https://5.imimg.com/data5/ZG/MN/QG/SELLER-97555911/titanium-ingot.jpg",
+        "alt": "Titanium ingot",
+        "caption": "Titanium ingot"
+      }
+    ]
+  },
+
+  "toepassingen": {
+    "title": "Toepassingen van titaan",
+
+    "sections": [
+      {
+        "heading": "Algemeen",
+        "text": "Titaan wordt gebruikt in luchtvaart, medische technologie, chemische industrie en offshore toepassingen."
+      },
+      {
+        "heading": "Luchtvaart en maritiem",
+        "text": "Door de hoge sterkte en corrosiebestendigheid is titaan ideaal voor vliegtuigmotoren en scheepsonderdelen.",
+        "image": {
+          "src": "ti-rotorbladen.jfif",
+          "caption": "Afb.3 Titanium rotorbladen"
+        }
+      },
+      {
+        "heading": "Medische toepassingen",
+        "text": "Het menselijk lichaam accepteert titaan zeer goed, waardoor het geschikt is voor implantaten.",
+        "image": {
+          "src": "prosthetic.jfif",
+          "caption": "Afb.4 Titaan prothese"
+        }
+      }
+    ],
+
+    "statistics": [
+      "China: ± 3,3 miljoen ton",
+      "Mozambique: ± 1,9 miljoen ton",
+      "Zuid-Afrika: ± 1,3 miljoen ton",
+      "Australië: ± 400.000 ton",
+      "Noorwegen: ± 360.000 ton"
+    ]
+  }
+}
