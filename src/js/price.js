@@ -4,9 +4,7 @@ class CommodityDashboard {
     this.apiKey = import.meta.env.VITE_METALPRICE_KEY || 'demo-key';
     
     // ✅ FIXED: Proper CORS proxy handling for production
-    this.apiBase = import.meta.env.DEV 
-      ? '/commoditic/api/v1'  // Vite proxy
-      : 'https://corsproxy.io/?'; // Production CORS proxy
+    this.apiBase = import.meta.env.VITE_API_BASE;
     
     this.commodity = 'titanium';
     this.dateFrom = '2017-07-13';
