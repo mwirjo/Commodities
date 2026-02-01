@@ -1,56 +1,82 @@
+</html>
+
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Titanium Group 5 | Economic Geology</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@700&family=Exo+2:wght@700&family=Rajdhani:wght@700&display=swap"
-      rel="stylesheet">
-  
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/mining.css">
-    <script type="module" src="/js/mining.js" defer></script>
-  </head>
 
-  <body>
-    <!-- index.html -->
-      <header>
-        <img src="https://www.le-comptoir-geologique.com/_media/img/large/ilmenite.webp" alt="Titanium Crystal"
-          class="header-logo-img">
-        <div class="header-text">
-          <h1>Group 5 Titanium</h1>
-          <p class="teacher">Mr. Gemerts - Economic Geology</p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Titanium Group 5 | Economic Geology</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@700&family=Exo+2:wght@700&family=Rajdhani:wght@700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mining.css">
+  <script type="module" src="/js/mining.js" defer></script>
+</head>
+
+<body>
+  <!-- index.html -->
+  <header>
+    <img src="https://www.le-comptoir-geologique.com/_media/img/large/ilmenite.webp" alt="Titanium Crystal"
+      class="header-logo-img">
+    <div class="header-text">
+      <h1>Group 5 Titanium</h1>
+      <p class="teacher">Mr. Gemerts - Economic Geology</p>
+    </div>
+    <div class="header-logos">
+      <img src="/images/logos/Adek.jfif" alt="Adek" class="logo-sm">
+      <img src="/images/logos/ftew.png" alt="FEW" class="logo-sm">
+    </div>
+  </header>
+
+  <main class="mining-container">
+    <div class="slide-container">
+      <h1>Mining en productie van titaan</h1>
+
+      <!-- Dredge Mining Section -->
+      <div id="dredge" class="mining-section">
+        <div class="mining-img"><img src="https://mozambiqueminingjournal.com/wp-content/uploads/2020/08/Kenmare-post-positive-results-amid-COVID-19.jpg" alt="Dredge Mining" class="mining-img"></div>
+        
+        <div class="mining-text">
+          <h3>Dredge mining (placerafzettingen)</h3>
+          <p>
+            Meer dan de helft van al het titaan wordt gewonnen met behulp van drijvende dredgers in kunstmatige
+            waterplassen.
+            Deze dredgers winnen zwaar mineraalhoudend sediment uit zand.
+          </p>
         </div>
-        <div class="header-logos">
-          <img src="/images/logos/Adek.jfif" alt="Adek" class="logo-sm">
-          <img src="/images/logos/ftew.png" alt="FEW" class="logo-sm">
+      </div>
+
+      <!-- Dry Mining Section -->
+      <div id="dry" class="mining-section hidden">
+        <div class="mining-img">
+          <img src="/images/dry_mining.jpg" alt="Dry Mining" class="mining-img">
         </div>
-      </header>
+        <div class="mining-text">
+          <h3>Dry mining (open-pit mijnbouw)</h3>
+          <p>
+            Bij deze methode wordt conventionele mijnbouwapparatuur gebruikt, zoals graafmachines, laders en bulldozers,
+            om
+            titaan-houdend zand of harde gesteenteafzettingen te ontginnen.
+          </p>
+        </div>
+      </div>
 
-    <main class="mining-container">
-      <section class="kroll-section">
-        <figure>
-          <img id="kroll-img" class="kroll-img">
-          <figcaption id="kroll-caption"></figcaption>
-        </figure>
-      </section>
-    
-      <section class="mining-intro">
-        <h2 id="mining-title"></h2>
-        <ul id="mining-points" class="bullet-points"></ul>
-      </section>
-    
-      
-    
-      <section id="process-gallery" class="process-gallery"></section>
-    
-      <a href="toepassingen.html" class="next-btn">
-        ➜ Toepassingen van titaan
-      </a>
-    
-    </main>
+      <!-- Toggle Button -->
+      <button id="toggleBtn">Bekijk andere methode</button>
 
-    <footer>© 2025 Mi-Ann & Group 5 | Economic Geology</footer>
-  </body>
+    </div>
+
+    <!-- Next Slide Link -->
+    <a href="/verwerking/index.html" class="next-btn">
+      ➜ Verwerking van titaan
+    </a>
+  </main>
+
+
+  <footer>© 2025 Mi-Ann & Group 5 | Economic Geology</footer>
+</body>
+
 </html>

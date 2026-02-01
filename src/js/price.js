@@ -175,11 +175,18 @@ class CommodityDashboard {
     const endDate = new Date(historical[historical.length - 1]?.date);
     const actualDaysSpan = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
     const yearsSpan = (actualDaysSpan / 365.25).toFixed(1);
-
+    const ma6 = this.calculateMovingAverage(prices, Math.min(6, prices.length)).slice(-1)[0] || 0;
+    const ma20 = this.calculateMovingAverage(prices, Math.min(20, prices.length)).slice(-1)[0] || 0;
     return {
       volatility: this.calculateVolatility(prices).toFixed(2) + '%',
-      rsi: (this.calculateRSI(prices, Math.min(6, prices.length - 1)) || 50).toFixed(0),
-      ma20: (this.calculateMovingAverage(prices, Math.min(6, prices.length)).slice(-1)[0] || 0).toFixed(2),
+      rsi: {
+        rsi6: (this.calculateRSI(prices, Math.min(6, prices.length - 1)) || 50).toFixed(0),
+        rsi12: (this.calculateRSI(prices, Math.min(12, prices.length - 1)) || 50).toFixed(0)
+      },
+     ma: {   // ✅ grouped here
+      ma6: ma6.toFixed(2),
+      ma20: ma20.toFixed(2)
+    },
       totalChange: prices.length ? (((prices[prices.length - 1] - prices[0]) / prices[0]) * 100).toFixed(1) : '0',
       cycleLow: Math.min(...prices).toFixed(2),
       cycleHigh: Math.max(...prices).toFixed(2),
@@ -296,7 +303,16 @@ class CommodityDashboard {
     if (current > 35) { score += 2; reasons.push('📊 >$35 = Strong'); }
     if (current > cycleHigh * 0.85) { score += 2; reasons.push(`🎯 Near cycle high (${(priceVsCycleHigh * 100).toFixed(0)}%)`); }
 
-    if (rsi && rsi > 40 && rsi < 70) { score += 1; reasons.push(`✅ RSI ${rsi.toFixed(0)} (neutral zone)`); }
+    if (rsi.rsi6 > 40 && rsi.rsi6 < 70) { 
+      score += 1; 
+      reasons.push(`✅ RSI6 ${rsi.rsi6} (neutral zone)`); 
+    }
+
+    if (rsi.rsi12 > 40 && rsi.rsi12 < 70) { 
+      score += 1; 
+      reasons.push(`✅ RSI12 ${rsi.rsi12} (neutral zone)`); 
+    }
+
     if (current > ma6) { score += 2; reasons.push('📈 > MA6 = Profitable'); }
     if (ma6 > ma24) { score += 1; reasons.push('🔥 MA6>MA24 = Bull confirmed'); }
 
@@ -407,10 +423,13 @@ class CommodityDashboard {
     if (volEl) volEl.textContent = stats.volatility || 'N/A';
 
     const rsiEl = document.getElementById('rsi');
-    if (rsiEl) rsiEl.textContent = stats.rsi || 'N/A';
+    if (rsiEl) rsiEl.textContent = `RSI6: ${stats.rsi.rsi6} | RSI12: ${stats.rsi.rsi12}`;
 
-    const ma20El = document.getElementById('ma20');
-    if (ma20El) ma20El.textContent = stats.ma20 ? `$${stats.ma20}` : 'N/A';
+
+    
+    const maEl = document.getElementById('maStats');
+    if (maEl) maEl.textContent = `MA6: $${stats.ma.ma6} | MA20: $${stats.ma.ma20}`;
+
 
     const totalDaysEl = document.getElementById('totalDays');
     if (totalDaysEl) {

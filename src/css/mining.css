@@ -1,122 +1,118 @@
-/* MINING CONTAINER */
 .mining-container {
-    padding: clamp(2rem, 5vw, 4rem) 8%;
+    padding: clamp(1rem, 1vw, 1rem) 8%;
     display: flex;
     flex-direction: column;
-    gap: 4rem;
-}
-
-/* KROLL PROCESS */
-.kroll-section {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.kroll-img {
-    width: 100%;
-    max-width: 1200px;
-    border-radius: 24px;
-    border: 4px solid var(--ilmenite-glow);
-    box-shadow: 0 25px 60px rgba(255, 149, 0, 0.35);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.kroll-img:hover {
-    transform: scale(1.02);
-    box-shadow: 0 30px 70px rgba(255, 149, 0, 0.45);
-}
-
-.kroll-section figcaption {
-    margin-top: 1rem;
-    font-style: italic;
-    color: var(--ilmenite-shine);
-    font-size: var(--large-font);
-}
-
-/* BULLET POINT CARDS */
-.bullet-points {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    /* space between cards */
-}
-
-.bullet-point-card {
-    
-    background: var(--bg-dark);
-    /* same as body */
-    border-radius: 16px;
-    padding: clamp(1.5rem, 3vw, 2.5rem);
-    border: 2px solid white;
-    /* white border */
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-    margin: 1rem 0;
-    /* add margin top/bottom for spacing outside the flex gap */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.bullet-point-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-}
-
-.bullet-point-card p {
-    font-size: var(--large-font);
-    margin-bottom: 1rem;
-    color: white;
-    /* text white */
-    font-weight: 500;
-}
-
-/* Images inside each card */
-.point-figure {
-    color:var(--ilmenite-glow);
-    display: flex;
-    flex-wrap: wrap;
     gap: 1rem;
-    justify-content: flex-start;
+    
+}
+
+/* SLIDE CONTAINER */
+.slide-container {
+    border: 1px solid;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: clamp(2rem, 4vw, 3rem);
+    background: var(--ti-secondary);
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    color: var(--ilmenite-dark);
+    transition: all 0.3s ease;
     text-align: center;
 }
 
-.point-figure img {
-    width: auto;
-    height: 300px;
-    border: 2px solid white;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+.mining-img{
+    border: 2px solid black;
+    border-radius: 3px;
+    
+}
+.mining-section {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+   
+    
+}
+.mining-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    padding: 3rem;
 }
 
-.point-figure img:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+
+h2 {
+    font-family: var(--font-headline);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    color: var(--ti-primary);
+    margin-bottom: 20px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-    .point-figure img {
-        width: 140px;
-    }
+/* LISTS */
+ul {
+    list-style: disc;
+    padding-left: 30px;
+    margin-bottom: 30px;
+    color: var(--ilmenite-dark);
 }
 
+/* BUTTONS */
+button, .next-btn {
+    display: block;
+    margin: 2rem auto;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem);
+    font-size: var(--large-font);
+    font-weight: 600;
+    font-family: var(--font-headline);
+    letter-spacing: 0.04em;
+    background: linear-gradient(135deg, var(--ilmenite-glow), var(--titanite-highlight));
+    color: var(--ilmenite-black);
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(255, 149, 0, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover, .next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(255, 149, 0, 0.6);
+}
+
+/* MINING METHOD & HIDDEN */
+.mining-method {
+    transition: all 0.5s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+/* RESPONSIVE SLIDE CONTAINER */
 @media (max-width: 768px) {
-    .point-figure {
-        justify-content: center;
-    }
-
-    .point-figure img {
-        width: 130px;
+    .slide-container {
+        padding: 2rem;
+        margin: 50px 1rem;
     }
 }
 
 @media (max-width: 480px) {
-    .point-figure img {
-        width: 100px;
+    .slide-container {
+        padding: 1.5rem;
+        margin: 40px 1rem;
     }
 
-    .kroll-img {
-        border-radius: 16px;
+    h2 {
+        font-size: clamp(1.3rem, 3vw, 1.8rem);
     }
+
+    button, .next-btn {
+        font-size: clamp(14px, 2.5vw, 18px);
+        padding: 10px 20px;
+    }
+
+    
 }
