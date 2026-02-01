@@ -26,6 +26,7 @@ export default defineConfig({
         mining: resolve(__dirname, 'src/verwerking/index.html'),
         verwerking:resolve(__dirname, 'src/mining/index.html'),
         toepassing: resolve(__dirname, 'src/toepassingen/index.html'),
+        price:resolve(__dirname, 'src/price/index.html'),
         questions: resolve(__dirname, 'src/questions/index.html'),
         thankyou: resolve(__dirname, 'src/thankyou/index.html')
       }
