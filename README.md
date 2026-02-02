@@ -1,1 +1,1 @@
-updated the verwerking css
+new build ready except prices

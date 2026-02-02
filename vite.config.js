@@ -29,7 +29,7 @@ export default defineConfig({
         verwerking:resolve(__dirname, 'src/verwerking/index.html'),
         toepassing: resolve(__dirname, 'src/toepassingen/index.html'),
         price:resolve(__dirname, 'src/price/index.html'),
-        questions: resolve(__dirname, 'src/questions/index.html'),
+        questions: resolve(__dirname, 'src/questions.html'),
         thankyou: resolve(__dirname, 'src/thankyou/index.html')
       }
     }
