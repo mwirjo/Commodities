@@ -76,7 +76,7 @@ class CommodityDashboard {
   }
 
   async fetchCurrentPrice() {
-    const targetUrl = `https://api.commoditic.com/api/v1/commodities?key=${this.apiKey}&name=${this.commodity}`;
+    const targetUrl = `commodities?key=${this.apiKey}&name=${this.commodity}`;
     const url = import.meta.env.DEV ? 
       `/commoditic/api/v1/commodities?key=${this.apiKey}&name=${this.commodity}` :
       `${this.apiBase}${encodeURIComponent(targetUrl)}`;
@@ -114,7 +114,7 @@ class CommodityDashboard {
     };
     
     const settings = config[freq] || config.month;
-    const targetUrl = `https://api.commoditic.com/api/v1/commodities_history?key=${this.apiKey}&name=${this.commodity}&date_from=${settings.from}&date_to=${settings.to}&frequency=${freq}`;
+    const targetUrl = `commodities_history?key=${this.apiKey}&name=${this.commodity}&date_from=${settings.from}&date_to=${settings.to}&frequency=${freq}`;
     const url = import.meta.env.DEV ? 
       `/commoditic/api/v1/commodities_history?key=${this.apiKey}&name=${this.commodity}&date_from=${settings.from}&date_to=${settings.to}&frequency=${freq}` :
       `${this.apiBase}${encodeURIComponent(targetUrl)}`;
