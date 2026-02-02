@@ -1,0 +1,112 @@
+/* Container */
+.mining-container {
+    padding: clamp(1rem, 1vw, 1rem) 8%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Slide wrapper */
+.slide-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: clamp(2rem, 4vw, 3rem);
+    background: var(--ti-secondary);
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    color: var(--ilmenite-dark);
+    transition: all 0.3s ease;
+    text-align: center;
+    border: 1px solid var(--ti-primary);
+}
+
+/* Slide itself */
+.slide {
+    background: var(--ti-secondary);
+    border: 1px solid var(--ti-primary);
+    border-radius: 14px;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+}
+
+/* Layout inside a slide */
+.mining-section {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* Image column */
+.mining-img {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Images */
+.mining-img img {
+    max-width: 300px;
+    max-height: 170px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--ti-primary);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* Captions */
+.caption {
+    font-size: var(--small-font);
+    color: var(--ti-text-dark);
+    text-align: center;
+}
+
+/* Text column */
+.mining-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    color: var(--ilmenite-dark);
+}
+
+/* Headings */
+.mining-text h3 {
+    font-family: var(--font-headline);
+    color: var(--ilmenite-glow);
+    letter-spacing: 0.04em;
+}
+
+/* Bullet points */
+.mining-text ul {
+    padding-left: 1.25rem;
+}
+
+.mining-text li {
+    margin-bottom: 0.5rem;
+    color: var(--ilmenite-mid);
+}
+
+/* Toggle / Next button */
+#toggleBtn,
+#nextSlideBtn {
+    margin: 2rem auto;
+}
+
+/* Hidden utility */
+.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mining-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .mining-img img {
+        max-width: 100%;
+    }
+}

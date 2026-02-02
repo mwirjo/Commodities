@@ -12,142 +12,153 @@
 </head>
 
 <body>
-    <div class="dashboard">
-        <!-- HEADER -->
-        <header class="hero">
-            <h1>🔥 Titanium Prijsontwikkeling</h1>
-            <p class="subtitle">Economische Geologie | 8.5-Jaar Analyse (2017-2025)</p>
-        </header>
+    <main>
+        <div class="dashboard">
+            <!-- HEADER -->
+            <header class="hero">
+                <h1>🔥 Titanium Prijsontwikkeling</h1>
+                <p class="subtitle">Economische Geologie | 8.5-Jaar Analyse (2017-2025)</p>
+            </header>
 
 
 
-        <!-- EXECUTIVE SUMMARY -->
-        <section class="executive-summary">
-            <p>some problems here</p>
-            <h2>📊 Markt Dashboard</h2>
-            <div class="summary-container">
-                <p id="dataSummary" class="summary neutral">Laden titanium data...</p>
-            </div>
-        </section>
-
-        <!-- LIVE METRICS + FORECAST -->
-        <section class="metrics-grid">
-            <div class="metric-card current-price">
-                <h3>💎 Live Prijs</h3>
-                <div class="price-display" id="currentPrice">$-</div>
-            </div>
-            <div class="metric-card weekly">
-                <h3>📈 Week ∆</h3>
-                <div class="change-display" id="weeklyChange">-</div>
-                <h4>Dag ∆</h4>
-                <div class="price-change" id="dailyChange">-</div>
-            </div>
-            <div class="metric-card changes">
-                <h3>⏱️ Timeframe ∆</h3>
-                <div>Maand: <span id="monthChange">-</span></div>
-                <div>Jaar: <span id="yearChange">-</span></div>
-            </div>
-            <div class="metric-card trend">
-                <h3>🎯 Cyclus Trend</h3>
-                <div class="trend-indicator" id="trendIndicator">-</div>
-            </div>
-            </div>
-            
-            <div class="frequency-toggle">
-                <button id="freq-month" class="freq-btn active">📅 8.5yr Monthly</button>
-                <button id="freq-week" class="freq-btn">📊 2yr Weekly</button>
-                <button id="freq-day" class="freq-btn">📈 1yr Daily</button>
-            </div>
-
-            <!-- 2026 FORECAST -->
-            <div class="forecast-grid">
-                <div class="metric-card forecast">
-                    <h3>📅 2026 Voorspelling</h3>
-                    <div>Q1: <strong id="q1Forecast">-</strong></div>
-                    <div>Q2: <strong id="q2Forecast">-</strong></div>
-                    <div>Q3: <strong id="q3Forecast">-</strong></div>
-                    <div>Jaar Avg: <strong id="q4Forecast">-</strong></div>
+            <!-- EXECUTIVE SUMMARY -->
+            <section class="executive-summary">
+                <p>some problems here</p>
+                <h2>📊 Markt Dashboard</h2>
+                <div class="summary-container">
+                    <p id="dataSummary" class="summary neutral">Laden titanium data...</p>
                 </div>
+            </section>
+
+            <!-- LIVE METRICS + FORECAST -->
+            <section class="metrics-grid">
+                <div class="metric-card current-price">
+                    <h3>💎 Live Prijs</h3>
+                    <div class="price-display" id="currentPrice">$-</div>
+                </div>
+                <div class="metric-card weekly">
+                    <h3>📈 Week ∆</h3>
+                    <div class="change-display" id="weeklyChange">-</div>
+                    <h4>Dag ∆</h4>
+                    <div class="price-change" id="dailyChange">-</div>
+                </div>
+                <div class="metric-card changes">
+                    <h3>⏱️ Timeframe ∆</h3>
+                    <div>Maand: <span id="monthChange">-</span></div>
+                    <div>Jaar: <span id="yearChange">-</span></div>
+                </div>
+                <div class="metric-card trend">
+                    <h3>🎯 Cyclus Trend</h3>
+                    <div class="trend-indicator" id="trendIndicator">-</div>
+                </div>
+                </div>
+                
+                <div class="frequency-toggle">
+                    <button id="freq-month" class="freq-btn active">📅 8.5yr Monthly</button>
+                    <button id="freq-week" class="freq-btn">📊 2yr Weekly</button>
+                    <button id="freq-day" class="freq-btn">📈 1yr Daily</button>
+                </div>
+
+                <!-- 2026 FORECAST -->
+                <div class="forecast-grid">
+                    <div class="metric-card forecast">
+                        <h3>📅 2026 Voorspelling</h3>
+                        <div>Q1: <strong id="q1Forecast">-</strong></div>
+                        <div>Q2: <strong id="q2Forecast">-</strong></div>
+                        <div>Q3: <strong id="q3Forecast">-</strong></div>
+                        <div>Jaar Avg: <strong id="q4Forecast">-</strong></div>
+                    </div>
+                </div>
+
+
+            <!-- ADVANCED STATS -->
+            <section class="advanced-stats">
+                <h3>🔬 Technische Analyse</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Volatiliteit (8.5jr)</span>
+                        <span class="stat-value" id="volatility">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">RSI </span>
+                        <span class="stat-value" id="rsi">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">MA</span>
+                        <span class="stat-value" id="maStats">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Data Span</span>
+                        <span class="stat-value" id="totalDays">-</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHARTS -->
+            <section class="charts-section">
+                <div class="chart-grid">
+                    <div class="chart-card">
+                        <h3>📈 Prijs </h3>
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>📅 Jaarlijks (2017-2025)</h3>
+                        <canvas id="yearlyChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>⚙️ MA Vergelijking (180d)</h3>
+                        <canvas id="maComparisonChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>📊 Volatiliteit</h3>
+                        <canvas id="volatilityChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DATA TABLE -->
+            <section class="table-section">
+                <h3>📋 Recente 30 maanden</h3>
+                <div class="table-container">
+                    <table id="priceTable">
+                        <thead>
+                            <tr>
+                                <th>Datum</th>
+                                <th>Prijs (USD/t)</th>
+                                <th>∆ maand (%)</th>
+                                <th>Trend</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- GLOSSARY -->
+            <section class="glossary-section">
+                <h2>📚 Technische Termen</h2>
+                <div class="glossary-grid" id="glossary-grid">
+                    <!-- JS populates this -->
+                </div>
+            </section>
+
+            <!-- CONTROLS -->
+            <div class="controls">
+                <button id="refreshData" class="btn-primary">🔄 Update Data</button>
+                <div id="status" class="status">Klaar voor titanium analyse</div>
             </div>
-
-
-        <!-- ADVANCED STATS -->
-        <section class="advanced-stats">
-            <h3>🔬 Technische Analyse</h3>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-label">Volatiliteit (8.5jr)</span>
-                    <span class="stat-value" id="volatility">-</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">RSI </span>
-                    <span class="stat-value" id="rsi">-</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">MA</span>
-                    <span class="stat-value" id="maStats">-</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Data Span</span>
-                    <span class="stat-value" id="totalDays">-</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- CHARTS -->
-        <section class="charts-section">
-            <div class="chart-grid">
-                <div class="chart-card">
-                    <h3>📈 Prijs </h3>
-                    <canvas id="priceChart"></canvas>
-                </div>
-                <div class="chart-card">
-                    <h3>📅 Jaarlijks (2017-2025)</h3>
-                    <canvas id="yearlyChart"></canvas>
-                </div>
-                <div class="chart-card">
-                    <h3>⚙️ MA Vergelijking (180d)</h3>
-                    <canvas id="maComparisonChart"></canvas>
-                </div>
-                <div class="chart-card">
-                    <h3>📊 Volatiliteit</h3>
-                    <canvas id="volatilityChart"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <!-- DATA TABLE -->
-        <section class="table-section">
-            <h3>📋 Recente 30 maanden</h3>
-            <div class="table-container">
-                <table id="priceTable">
-                    <thead>
-                        <tr>
-                            <th>Datum</th>
-                            <th>Prijs (USD/t)</th>
-                            <th>∆ maand (%)</th>
-                            <th>Trend</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- GLOSSARY -->
-        <section class="glossary-section">
-            <h2>📚 Technische Termen</h2>
-            <div class="glossary-grid" id="glossary-grid">
-                <!-- JS populates this -->
-            </div>
-        </section>
-
-        <!-- CONTROLS -->
-        <div class="controls">
-            <button id="refreshData" class="btn-primary">🔄 Update Data</button>
-            <div id="status" class="status">Klaar voor titanium analyse</div>
         </div>
-    </div>
+        <div class="navigation-buttons">
+            <a href="/productie/index.html" class="prev-btn">
+                ← Vorige
+            </a>
+        
+            <a href="/questions.html" class="next-btn">
+                ➜ Prijsontwikkeling van titaan
+            </a>
+        </div>
+    </main>
 
     
 </body>

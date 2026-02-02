@@ -21,7 +21,8 @@ export default defineConfig({
       input: {
         loader: resolve(__dirname, 'src/index.html'),
         homepage: resolve(__dirname, 'src/homepage.html'),
-        geologie: resolve(__dirname, 'src/geologie/index.html'),
+        intro: resolve(__dirname, 'src/intro/index.html'),
+        vorming: resolve(__dirname, 'src/vorming/index.html'),
         vindplaatsen: resolve(__dirname, 'src/vindplaatsen/index.html'),
         productie: resolve(__dirname, 'src/productie/index.html'),
         mining: resolve(__dirname, 'src/mining/index.html'),

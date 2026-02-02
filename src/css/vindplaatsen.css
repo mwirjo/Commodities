@@ -1,0 +1,127 @@
+/* MAIN CONTAINER */
+.mining-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* SLIDE */
+.slide {
+    border: 1px solid var(--ti-primary);
+    border-radius: 14px;
+    padding: 2rem;
+    background: var(--ti-secondary);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+}
+
+/* HIDE SLIDES */
+.hidden {
+    display: none;
+}
+
+/* SLIDE CONTENT LAYOUT */
+.mining-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+}
+
+/* TEXT (RIGHT) */
+.text {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--ilmenite-dark);
+}
+
+.text h3 {
+    font-family: var(--font-headline);
+    color: var(--ilmenite-glow);
+    letter-spacing: 0.04em;
+}
+
+.text ul {
+    padding-left: 1.2rem;
+}
+
+.text li {
+    margin-bottom: 0.5rem;
+    color: var(--ilmenite-mid);
+}
+
+/* PICTURES (LEFT) */
+.picture {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* IMAGES */
+.figure img {
+    max-width: 400px;
+    max-height: 300px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--ti-primary);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* CAPTION */
+.caption {
+    font-size: var(--small-font);
+    margin-top: 0.25rem;
+    text-align: center;
+    color: var(--ti-text-dark);
+}
+
+/* BUTTON */
+#nextSlideBtn {
+    align-self: center;
+    margin-top: 1.5rem;
+    padding: 0.75rem 2.2rem;
+    font-size: var(--large-font);
+    font-weight: 600;
+    font-family: var(--font-headline);
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg,
+            var(--ilmenite-glow),
+            var(--titanite-highlight));
+    color: var(--ilmenite-black);
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(255, 149, 0, 0.4);
+}
+
+#nextSlideBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(255, 149, 0, 0.6);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .mining-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .text {
+        align-items: center;
+    }
+}

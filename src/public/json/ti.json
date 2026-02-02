@@ -85,10 +85,16 @@
       {
         "heading": "Medische toepassingen",
         "text": "Het menselijk lichaam accepteert titaan zeer goed, waardoor het geschikt is voor implantaten.",
-        "image": {
-          "src": "prosthetic.jfif",
-          "caption": "Afb.4 Titaan prothese"
-        }
+        "image": [
+            {
+              "src": "prosthetic.jfif",
+              "caption": "Afb.4 Titaan prothese 1"
+            },
+            {
+              "src": "prosthetic2.webp",
+              "caption": "Afb.5 Titaan prothese 2"
+            }
+          ]
       }
     ],
 

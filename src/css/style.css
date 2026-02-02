@@ -1,3 +1,4 @@
+
 /* /css/style.css - FINAL OPTIMIZED VERSION */
 :root {
   --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -11,6 +12,7 @@
   --ilmenite-light: #6B7280;
   --ilmenite-titan: #9CA3AF;
 
+  
   /* Titanium Ore Glows - ORANGE for ADEK/FEW */
   --ilmenite-glow: #FF9500;
   /* Primary orange-gold */
@@ -94,6 +96,41 @@ header {
   gap: 0.5rem;
   flex: 1;
   text-align: center;
+}
+.navigation-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  max-width: 600px;
+  margin: 2rem auto;
+  gap: 1rem;
+}
+
+.navigation-buttons a {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font-headline);
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  background: linear-gradient(135deg, var(--ilmenite-glow), var(--titanite-highlight));
+  color: var(--ilmenite-black);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(255, 149, 0, 0.4);
+}
+
+.navigation-buttons a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(255, 149, 0, 0.6);
+}
+
+.prev-btn {
+  background: linear-gradient(135deg, var(--titanite-highlight), var(--ilmenite-glow));
+ height: 40px;
 }
 
 .header-text h1 {

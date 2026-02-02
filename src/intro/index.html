@@ -1,5 +1,3 @@
-</html>
-
 <!doctype html>
 <html lang="en">
 
@@ -13,11 +11,10 @@
 
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/mining.css">
-    <script type="module" src="/js/mining.js" defer></script>
+    <script type="module" href="/js/main.js"></script>
 </head>
 
 <body>
-    <!-- index.html -->
     <header>
         <img src="https://www.le-comptoir-geologique.com/_media/img/large/ilmenite.webp" alt="Titanium Crystal"
             class="header-logo-img">
@@ -31,22 +28,34 @@
         </div>
     </header>
 
-    <main class="geologie-container">
+    <main class="mining-container">
         <div class="slide-container">
-            <h1> Geologie van Titanium</h1>
-           
 
-            <!-- Toggle Button -->
-            <button id="toggleBtn">Bekijk andere methode</button>
+            <!-- Slide 2: Introductie -->
+            <h1>Introductie</h1>
+            <div id="intron" class="mining-section">
+                <div class="mining-img">
+                    <img src="/images/windturbines.jfif" alt="Windturbines" class="active">
+                    <img src="/images/electriccar.jfif" alt="Elektrische voertuigen">
+                    <img src="/images/solar-panels.jfif" alt="Zonnepanelen">
+                </div>
+
+                <div class="mining-text">
+                    <ul>
+                        <li>Kritieke mineraal (EU 2020)</li>
+                        <li>Onmisbaar voor: windturbines, elektrische voertuigen, zonnepanelen (foto's)</li>
+                        <li>Focus op vorming, afzetting en verwerking, mijnen en prijsontwikkeling van titaanertsen</li>
+                    </ul>
+                </div>
+            </div>
 
         </div>
 
         <!-- Next Slide Link -->
-        <a href="/vindplaatsen/index.html" class="next-btn">
-            ➜ vindplaatsen van titaan
+        <a href="/vorming/index.html" class="next-btn">
+            ➜ Verwerking van titaan
         </a>
     </main>
-
 
     <footer>© 2025 Mi-Ann & Group 5 | Economic Geology</footer>
 </body>
