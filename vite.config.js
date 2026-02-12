@@ -30,7 +30,9 @@ export default defineConfig({
         toepassing: resolve(__dirname, 'src/toepassingen/index.html'),
         price:resolve(__dirname, 'src/price/index.html'),
         questions: resolve(__dirname, 'src/questions.html'),
-        thankyou: resolve(__dirname, 'src/thankyou/index.html')
+        thankyou: resolve(__dirname, 'src/thankyou/index.html'),
+        notes: resolve(__dirname, 'src/notes.html'),
+        loaderror: resolve(__dirname, 'src/price/loaderror.html')
       }
     }
   }

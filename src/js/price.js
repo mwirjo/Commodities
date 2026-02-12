@@ -43,6 +43,7 @@ class CommodityDashboard {
     }
     console.log(`[${type.toUpperCase()}] ${message}`);
   }
+  
 
   async refreshData() {
     localStorage.removeItem(this.data.localStorageKey);
@@ -217,7 +218,8 @@ class CommodityDashboard {
     if (!keep) console.log(`❌ FILTERED: ${p.date} $${val.toFixed(2)}`);
     return keep;
   });
-}
+  }
+  
 
 
   getInsufficientDataStats(dataPoints) {
@@ -655,8 +657,14 @@ class CommodityDashboard {
       console.warn('Failed to save cache:', e);
     }
   }
+
+  
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   new CommodityDashboard();
+});
+document.getElementById('errorBtn').addEventListener('click', function () {
+  window.location.href = './loaderror.html';
 });
